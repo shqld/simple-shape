@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Program",
+            "type": "pwa-node",
+            "request": "launch",
+            "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+            "args": ["${workspaceFolder}/src/main.ts", "./playground/hello.ts"],
+            "skipFiles": ["<node_internals>/**", "node_modules/**"],
+            "env": {
+                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json",
+                "NODE_ENV": "development"
+            }
+        },
+        {
+            "name": "Attach Debugger",
+            "type": "pwa-node",
+            "request": "attach",
+            "processId": "${command:PickProcess}"
+        },
+        {
+            "name": "Debug Test Files",
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/jest/bin/jest.js",
+                "--runInBand"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+        }
+    ]
+}
