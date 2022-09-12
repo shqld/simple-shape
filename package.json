@@ -1,6 +1,6 @@
 {
     "name": "simple-shape",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "A simple function for building JSON Schema",
     "main": "build/src/index.js",
     "repository": "https://github.com/shqld/simple-shape",
