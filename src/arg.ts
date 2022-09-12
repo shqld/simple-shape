@@ -1,4 +1,4 @@
-import { RecordKey } from "./record-key";
+import { Shape } from "./shape";
 
 export type ConstructorArg =
     | typeof Boolean
@@ -7,10 +7,14 @@ export type ConstructorArg =
     | typeof Array
     | typeof Object;
 
-export type PrimitiveArg = boolean | number | string | symbol | null;
-
-export type NonPrimitiveArg = Array<Arg> | { [key in RecordKey]: Arg } | RegExp;
-
-export type ValueArg = PrimitiveArg | NonPrimitiveArg;
-
-export type Arg = ConstructorArg | ValueArg;
+export type Arg =
+    | ConstructorArg
+    | boolean
+    | number
+    | string
+    | symbol
+    | null
+    | Array<Arg>
+    | { [x: string]: Arg } // 'Record<string, Arg>' causes circular references
+    | RegExp
+    | Shape;

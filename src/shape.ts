@@ -1,31 +1,13 @@
+import { JSONSchema7 } from "json-schema";
+
 export type TypeOf<S extends Shape> = S extends Shape<infer V> ? V : never;
 
-export type ShapeType = Shape["type"];
+export class Shape<T = unknown> implements JSONSchema7 {
+    __shape?: T;
 
-export type Shape<T = unknown> = { __shape?: T } & (
-    | {
-          type: "boolean";
-          const?: boolean;
-      }
-    | {
-          type: "number";
-          const?: number;
-      }
-    | {
-          type: "string";
-          const?: string;
-          pattern?: RegExp;
-      }
-    | {
-          type: "null";
-          properties?: Record<string, Shape>;
-      }
-    | {
-          type: "array";
-          items?: Shape;
-      }
-    | {
-          type: "object";
-          properties?: Record<string, Shape>;
-      }
-);
+    type: JSONSchema7["type"];
+
+    constructor(schema: JSONSchema7) {
+        Object.assign(this, schema);
+    }
+}

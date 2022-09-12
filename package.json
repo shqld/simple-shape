@@ -1,18 +1,16 @@
 {
     "name": "simple-shape",
     "version": "0.0.0",
-    "description": "simple shape",
-    "main": "src/main.ts",
+    "description": "A simple function for building JSON Schema",
+    "main": "build/src/index.js",
     "repository": "https://github.com/shqld/simple-shape",
     "author": "Sho Miyamoto <me@shqld.dev>",
     "license": "MIT",
-    "private": true,
     "scripts": {
-        "start": "node build/main.js",
-        "dev": "ts-node src/main.ts",
+        "prepublishOnly": "yarn build",
         "build": "tsc --outDir build",
         "test": "run-p test:*",
-        "test:unit": "exit 0",
+        "test:unit": "vitest run",
         "test:fmt": "prettier --check --loglevel warn src",
         "test:lint": "eslint src",
         "test:type": "tsc --noEmit",
@@ -29,6 +27,7 @@
         "@types/node": "^17.0.23",
         "@typescript-eslint/eslint-plugin": "^5.8.1",
         "@typescript-eslint/parser": "^5.8.1",
+        "ajv": "^8.11.0",
         "dumper.js": "^1.3.1",
         "eslint": "^8.6.0",
         "eslint-config-google": "^0.14.0",
@@ -40,6 +39,7 @@
         "rimraf": "^3.0.2",
         "ts-node": "^10.7.0",
         "tsd": "^0.23.0",
-        "typescript": "^4.6.3"
+        "typescript": "^4.6.3",
+        "vitest": "^0.23.2"
     }
 }

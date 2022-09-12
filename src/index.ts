@@ -1,24 +1,25 @@
-import { expectType } from "tsd";
 import { Arg } from "./arg";
-import { Shape, TypeOf } from "./shape";
-import { ValueOf } from "./valueof";
+import { ResolveArg } from "./resolve-args";
+import { Shape } from "./shape";
+
+export { Arg, Shape };
 
 export const $key: unique symbol = Symbol("$key");
 
-export function shape<T extends Arg>(arg: T): Shape<ValueOf<T>>;
+export function shape<T extends Arg>(arg: T): Shape<ResolveArg<T>>;
 export function shape(arg: Arg): Shape {
     if (typeof arg === "function") {
         switch (arg) {
             case Number:
-                return { type: "number" };
+                return new Shape({ type: "number" });
             case String:
-                return { type: "string" };
+                return new Shape({ type: "string" });
             case Boolean:
-                return { type: "boolean" };
+                return new Shape({ type: "boolean" });
             case Array:
-                return { type: "array" };
+                return new Shape({ type: "array" });
             case Object:
-                return { type: "object" };
+                return new Shape({ type: "object" });
             default:
                 throw new Error("unexpected function");
         }
@@ -30,69 +31,39 @@ export function shape(arg: Arg): Shape {
         case "boolean":
         case "number":
         case "string":
-            return {
+            return new Shape({
                 type,
                 const: arg as never,
-            };
+            });
     }
 
     if (arg === null) {
-        return { type: "null" };
+        return new Shape({ type: "null" });
     }
 
     if (Array.isArray(arg)) {
-        return {
+        return new Shape({
             type: "array",
             items: shape(arg[0]),
-        };
+        });
     }
 
     if (arg instanceof RegExp) {
-        return { type: "string", pattern: arg };
+        return new Shape({ type: "string", pattern: arg.source });
+    }
+
+    if (arg instanceof Shape) {
+        return arg;
+    }
+
+    if (typeof arg === "object") {
+        return new Shape({
+            type: "object",
+            properties: Object.fromEntries(
+                Object.entries(arg).map(([key, value]) => [key, shape(value)])
+            ),
+        });
     }
 
     throw new Error("unexpected arg");
-}
-
-{
-    expectType<Shape<Record<"key", Record<string, number>>>>(
-        shape({
-            key: { [$key]: Number },
-        })
-    );
-
-    expectType<Shape<{ a: 1 }>>(shape({ a: 1 }));
-    expectType<Shape<{ a: 1 }>>(
-        // @ts-expect-error - wrong value
-        shape({ a: 2 } as const)
-    );
-    expectType<Shape<{ a: string }>>(shape({ a: String }));
-    expectType<Shape<{ a: string }>>(
-        // @ts-expect-error - wrong value
-        shape({ a: Number })
-    );
-
-    const a = shape({ a: { b: Number } });
-    a;
-    const b = shape([]);
-    b;
-
-    const c = shape(/hello/);
-    c;
-    const d = shape([Number]);
-    d;
-    const e = shape(Number);
-    e;
-
-    const f = shape({ a: Number });
-    f;
-
-    const g = shape({ [$key]: Number });
-    g;
-
-    let h!: TypeOf<typeof g>;
-    h;
-
-    const x: Array<number> = [1];
-    x;
 }
