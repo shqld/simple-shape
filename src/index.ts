@@ -1,6 +1,6 @@
-import { Arg } from "./arg";
-import { ResolveArg } from "./resolve-args";
-import { Shape, TypeOf } from "./shape";
+import type { Arg } from "./arg";
+import type { ResolveArg } from "./resolve-args";
+import { Shape, type TypeOf } from "./shape";
 
 export { Arg, Shape, TypeOf };
 

@@ -1,6 +1,7 @@
 import { expectType } from "tsd";
-import { Arg, ConstructorArg } from "./arg";
-import { $key, Shape } from ".";
+import type { Arg, ConstructorArg } from "./arg";
+import type { Shape } from "./shape";
+import type { $key } from ".";
 
 type ResolveConstructor<T extends ConstructorArg> = T extends typeof Boolean
     ? boolean

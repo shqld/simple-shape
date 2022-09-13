@@ -1,4 +1,4 @@
-import { JSONSchema7 } from "json-schema";
+import type { JSONSchema7 } from "json-schema";
 
 export type TypeOf<S extends Shape> = S extends Shape<infer V> ? V : never;
 

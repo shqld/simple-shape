@@ -1,4 +1,4 @@
-import { Shape } from "./shape";
+import type { Shape } from "./shape";
 
 export type ConstructorArg =
     | typeof Boolean

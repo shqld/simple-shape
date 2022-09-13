@@ -1,5 +1,5 @@
-import { ResolveArg } from "./resolve-args";
-import { Arg, Shape, shape } from ".";
+import type { ResolveArg } from "./resolve-args";
+import { type Arg, Shape, shape } from ".";
 
 export function anyOf<T extends Array<Arg>>(
     ...args: T
