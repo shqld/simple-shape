@@ -3,6 +3,9 @@
     "version": "0.0.1",
     "description": "A simple function for building JSON Schema",
     "main": "build/src/index.js",
+    "files": [
+        "build/src"
+    ],
     "repository": "https://github.com/shqld/simple-shape",
     "author": "Sho Miyamoto <me@shqld.dev>",
     "license": "MIT",
