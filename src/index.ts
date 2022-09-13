@@ -1,8 +1,8 @@
 import { Arg } from "./arg";
 import { ResolveArg } from "./resolve-args";
-import { Shape } from "./shape";
+import { Shape, TypeOf } from "./shape";
 
-export { Arg, Shape };
+export { Arg, Shape, TypeOf };
 
 export const $key: unique symbol = Symbol("$key");
 
