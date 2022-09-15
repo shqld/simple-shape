@@ -29,3 +29,5 @@ const message = {
 
 ajv.validate(shape, message);
 ```
+
+For details: https://github.com/shqld/simple-shape/blob/main/example.ts
