@@ -27,7 +27,10 @@ const message = {
     text: 'Hello, world!',
 }
 
-ajv.validate(shape, message);
+if (ajv.validate<TypeOf<typeof Message>>(shape, message)) {
+  message
+  // -> { id: number, type: 'short' | 'long', text: string }
+}
 ```
 
 For details: https://github.com/shqld/simple-shape/blob/main/example.ts
